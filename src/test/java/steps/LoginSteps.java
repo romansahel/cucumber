@@ -1,4 +1,5 @@
-/* package CucumberTool;
+package steps;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,29 +8,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import utils.CommonMethods;
+import utils.ConfigReader;
 
 import java.util.concurrent.TimeUnit;
 
-public class StepDefClass {
-
-    WebDriver driver;
+public class LoginSteps extends CommonMethods {
+    // WebDriver driver;
 
     @Given("user is navigated to HRMS application")
     public void user_is_navigated_to_hrms_application() {
-        WebDriverManager.chromedriver().setup();
-        driver=new ChromeDriver();
-        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        openBrowserAndLaunchApplication();
+        //WebDriverManager.chromedriver().setup();
+       // driver=new ChromeDriver();
+       // driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
+       // driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+       // driver.manage().window().maximize();
     }
 
     @When("user enters valid username and valid password")
     public void user_enters_valid_username_and_valid_password() {
         WebElement usernameField = driver.findElement(By.id("txtUsername"));
-        usernameField.sendKeys("admin");
+        usernameField.sendKeys(ConfigReader.getPropertyValue("username"));
 
         WebElement passwordField = driver.findElement(By.id("txtPassword"));
-        passwordField.sendKeys("Hum@nhrm123");
+        passwordField.sendKeys(ConfigReader.getPropertyValue("password"));
 
     }
 
@@ -48,13 +51,4 @@ public class StepDefClass {
             System.out.println("Test is failed");
         }
     }
-    @Then("user verify dashboard")
-    public void user_verify_dashboard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-
-
 }
-*/
